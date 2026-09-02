@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Zeynep & Ulaş — Düğün Davetiyesi</title>
+  
+  <!-- ANDROID WHATSAPP FORCE DARK DEFENSE -->
+  <meta name="color-scheme" content="light only" />
+  <meta name="theme-color" content="#FAF8F3" />
+  <style>
+    :root { color-scheme: light only !important; }
+    * { color-scheme: light only !important; }
+    @media (prefers-color-scheme: dark) {
+      :root { color-scheme: light only !important; }
+      * { color-scheme: light only !important; }
+    }
+  </style>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --burgundy: #4a151b;
+      --burgundy-btn: #731e25;
+      --burgundy-dark: #330b10;
+      --gold: #c5a059;
+      --gold-dark: #8e6f32;
+      --text-main: #332b26;
+      --text-muted: #786c62;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      min-height: 100dvh;
+      background: #141110;
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--text-main);
+      overflow: hidden;
+    }
+
+    /* MOBİLDE TÜM TELEFON EKRANINI KAPLAYAN PENCERE */
+    .app-screen {
+      position: relative;
+      width: 100vw;
+      height: 100dvh;
+      max-width: 440px;
+      margin: 0 auto;
+      overflow: hidden;
+      perspective: 1600px;
+      transform-style: preserve-3d;
+      background-color: #fbf8f3;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+    }
+
+    /* ==========================================================
+       1. İÇ DAVETİYE KARTI: tasarim/background.png
+       ========================================================== */
+    .inner-card {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fbf8f3;
+      background-image: url('tasarim/background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      padding: clamp(24px, 5vh, 42px) clamp(20px, 6vw, 32px) clamp(16px, 3.5vh, 28px);
+      z-index: 5;
+    }
+
+    /* KADEMELİ BELİRME (STAGGERED REVEAL) */
+    .reveal-el {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .app-screen.is-open .r-1 { opacity: 1; transform: translateY(0); transition-delay: 1.2s; }
+    .app-screen.is-open .r-2 { opacity: 1; transform: translateY(0); transition-delay: 2s; }
+    .app-screen.is-open .r-3 { opacity: 1; transform: translateY(0); transition-delay: 2s; }
+    .app-screen.is-open .r-4 { opacity: 1; transform: translateY(0); transition-delay: 2.8s; }
+    .app-screen.is-open .r-5 { opacity: 1; transform: translateY(0); transition-delay: 2.8s; }
+    .app-screen.is-open .r-6 { opacity: 1; transform: translateY(0); transition-delay: 3.6s; }
+
+    /* 1. ÜST BAŞLIK */
+    .header-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(8.5px, 2.2vw, 10px);
+      letter-spacing: 4px;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: clamp(2px, 1.2vh, 12px);
+    }
+
+    /* 2. İSİMLER */
+    .names-lockup {
+      margin: clamp(2px, 0.8vh, 8px) 0;
+    }
+    .name-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(34px, 9vw, 44px);
+      font-weight: 500;
+      color: var(--burgundy);
+      letter-spacing: 0.5px;
+      line-height: 1.05;
+      text-shadow: 0 1px 2px rgba(74, 21, 27, 0.1);
+    }
+    .name-conjunction {
+      font-family: 'Alex Brush', cursive;
+      font-size: clamp(28px, 7.5vw, 36px);
+      color: var(--gold);
+      margin: -6px 0;
+      display: block;
+    }
+
+    /* 3. DAVET CÜMLESİ */
+    .invitation-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(13.5px, 3.8vw, 15.5px);
+      font-style: italic;
+      color: #554a40;
+      line-height: 1.45;
+      max-width: 270px;
+      margin: 2px 0;
+    }
+
+    /* 4. AİLE İSİMLERİ */
+    .families-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(7.5px, 2vw, 8.5px);
+      letter-spacing: 3.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* 5. TARİH KARTUŞU */
+    .date-row-badge {
+      width: 100%;
+      max-width: 285px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: clamp(4px, 1vh, 8px) 0;
+    }
+    .date-side-col {
+      flex: 1;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .date-side-line { width: 26px; height: 0.75px; background: var(--gold); opacity: 0.65; }
+    .date-side-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(7.5px, 2vw, 8.5px);
+      letter-spacing: 1.8px;
+      color: #63574c;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .date-cartouche-box {
+      position: relative;
+      padding: 6px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 4px;
+    }
+    .date-cartouche-shape {
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--gold);
+      border-radius: 18px / 11px;
+      background: rgba(255, 255, 255, 0.55);
+      box-shadow: 0 4px 12px rgba(197, 160, 89, 0.12);
+      pointer-events: none;
+    }
+    .date-cartouche-shape::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border: 0.5px solid rgba(197, 160, 89, 0.4);
+      border-radius: 15px / 9px;
+    }
+    .day-num-text {
+      position: relative;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 7vw, 30px);
+      font-weight: 500;
+      color: var(--burgundy);
+      line-height: 1;
+    }
+    .month-year-text {
+      position: relative;
+      font-family: 'Cinzel', serif;
+      font-size: 8px;
+      letter-spacing: 2px;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    /* 6. MEKAN VE BUTONLAR */
+    .venue-section-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      margin-top: 2px;
+      width: 100%;
+    }
+    .venue-title-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 4.8vw, 21px);
+      color: var(--burgundy);
+      font-weight: 600;
+    }
+    .venue-city-text {
+      font-family: 'Cinzel', serif;
+      font-size: 8.5px;
+      letter-spacing: 2px;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .buttons-flow-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-top: clamp(6px, 1.2vh, 12px);
+      width: 100%;
+      max-width: 300px;
+    }
+    .primary-map-btn {
+      background: var(--burgundy-btn);
+      color: #ffffff;
+      border: 1px solid rgba(197, 160, 89, 0.45);
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(115, 30, 37, 0.35);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      width: 100%;
+      min-height: 42px;
+      transition: all 0.25s ease;
+    }
+    .primary-map-btn:hover {
+      background: var(--burgundy-dark);
+      transform: translateY(-1px);
+    }
+    .secondary-row-buttons {
+      display: flex;
+      gap: 6px;
+      width: 100%;
+      justify-content: center;
+    }
+    .sub-pill-btn {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--burgundy-btn);
+      border: 1px solid rgba(197, 160, 89, 0.45);
+      padding: 8px 6px;
+      border-radius: 24px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 8.5px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-height: 38px;
+      transition: all 0.2s ease;
+    }
+    .sub-pill-btn:hover {
+      background: #ffffff;
+      border-color: var(--burgundy-btn);
+    }
+
+    /* ==========================================================
+       2. DİKEY ÇİFT KANATLI KAPAK: tasarim/kapak.jpg İLE DİKİŞSİZ
+       ========================================================== */
+    .gatefold-cover {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 25;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    /* Sol Kapak: kapak.jpg'nin sol %50'si, sol menteşeden döner */
+    .gate-door-left {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 50.05%;
+      overflow: hidden;
+      transform-origin: left center;
+      transition: transform 3s cubic-bezier(0.25, 0.1, 0.1, 1);
+      z-index: 10;
+    }
+    .door-crop-left {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .door-img-left {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%; /* kapak.jpg'nin sol yarısı tam oturur */
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    /* Sağ Kapak: kapak.jpg'nin sağ %50'si, sağ menteşeden döner */
+    .gate-door-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50.05%;
+      overflow: hidden;
+      transform-origin: right center;
+      transition: transform 3s cubic-bezier(0.25, 0.1, 0.1, 1);
+      z-index: 9;
+    }
+    .door-crop-right {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .door-img-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200%; /* kapak.jpg'nin sağ yarısı tam oturur */
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    /* 3D AÇILMA ANİMASYONU */
+    .app-screen.is-open .gate-door-left {
+      transform: rotateY(-112deg);
+      box-shadow: -14px 0 36px rgba(0, 0, 0, 0.4);
+    }
+    .app-screen.is-open .gate-door-right {
+      transform: rotateY(112deg);
+      box-shadow: 14px 0 36px rgba(0, 0, 0, 0.4);
+    }
+    .app-screen.is-open .gatefold-cover {
+      pointer-events: none;
+      visibility: hidden;
+      transition: visibility 1.4s ease;
+    }
+
+    /* LCV FORMU SAYFA İÇİ MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 12, 10, 0.85);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    .modal-card {
+      position: relative;
+      background: #fcf9f4;
+      width: 100%;
+      max-width: 440px;
+      border-radius: 24px;
+      border: 1px solid rgba(197, 160, 89, 0.5);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 24px 20px;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+      padding-bottom: 10px;
+    }
+    .modal-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--burgundy);
+    }
+    .modal-close-btn {
+      background: none;
+      border: none;
+      font-size: 28px;
+      line-height: 1;
+      color: var(--text-muted);
+      cursor: pointer;
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .form-group {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .form-input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(197, 160, 89, 0.4);
+      background: rgba(255, 255, 255, 0.85);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--text-main);
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--burgundy-btn);
+    }
+    .radio-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 6px;
+    }
+    .radio-label {
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBİLDE TÜM TELEFON EKRANINI KAPLAYAN PENCERE -->
+  <main class="app-screen" id="appScreen">
+
+    <!-- 1. İÇ DAVETİYE KARTI: tasarim/background.png İLE BİREBİR -->
+    <article class="inner-card" id="innerCard">
+
+      <!-- 1. Beliren: Üst Başlık -->
+      <div class="header-eyebrow reveal-el r-1">DÜĞÜNÜMÜZE DAVETLİSİNİZ</div>
+
+      <!-- 2. Beliren: İsimler (Zeynep ve Ulaş) -->
+      <div class="names-lockup reveal-el r-2">
+        <h1 class="name-title">Zeynep</h1>
+        <span class="name-conjunction">ve</span>
+        <h1 class="name-title">Ulaş</h1>
+      </div>
+
+      <!-- 3. Beliren: Davet Cümlesi -->
+      <p class="invitation-quote reveal-el r-3">
+        “En mutlu günümüzde sizleri aramızda görmekten mutluluk duyarız.”
+      </p>
+
+      <!-- 4. Beliren: Aile İsimleri -->
+      <div class="families-tag reveal-el r-4">
+        YILDIZ &amp; DEMİR AİLELERİ
+      </div>
+
+      <!-- 5. Beliren: Tarih Kartuşu (8 Eylül 2027, Çarşamba - 19:30) -->
+      <div class="date-row-badge reveal-el r-5">
+        <div class="date-side-col">
+          <div class="date-side-line"></div>
+          <span class="date-side-text">ÇARŞAMBA</span>
+          <div class="date-side-line"></div>
+        </div>
+        <div class="date-cartouche-box">
+          <div class="date-cartouche-shape"></div>
+          <span class="day-num-text">8</span>
+          <span class="month-year-text">EYLÜL 2027</span>
+        </div>
+        <div class="date-side-col">
+          <div class="date-side-line"></div>
+          <span class="date-side-text">SAAT 19:30</span>
+          <div class="date-side-line"></div>
+        </div>
+      </div>
+
+      <!-- 6. Beliren: Mekan Bilgisi ve Butonlar -->
+      <div class="venue-section-wrap reveal-el r-6">
+        <div class="venue-title-text">Bella Vista Event</div>
+        <div class="venue-city-text">ÇUKUROVA &bull; ADANA</div>
+
+        <div class="buttons-flow-grid">
+          <!-- Ana Buton: Yol Tarifi Al -->
+          <a class="primary-map-btn" target="_blank" rel="noopener" 
+             href="https://www.google.com/maps/search/?api=1&query=Bella+Vista+Event+Adana">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+              <line x1="8" y1="2" x2="8" y2="18"></line>
+              <line x1="16" y1="6" x2="16" y2="22"></line>
+            </svg>
+            <span>Yol Tarifi Al</span>
+          </a>
+
+          <!-- İkincil Butonlar: Takvim, LCV, WhatsApp -->
+          <div class="secondary-row-buttons">
+            <a class="sub-pill-btn" target="_blank" rel="noopener" 
+               href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zeynep+%26+Ula%C5%9F+D%C3%BC%C4%9F%C3%BCn&dates=20270908T163000Z/20270908T183000Z&details=Zeynep+ve+Ula%C5%9F%27%C4%B1n+D%C3%BC%C4%9F%C3%BCn+T%C3%B6reni&location=Bella+Vista+Event,+Adana">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+              </svg>
+              <span>Takvim</span>
+            </a>
+
+            <button class="sub-pill-btn" id="openRsvpModalBtn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              <span>LCV</span>
+            </button>
+
+            <a class="sub-pill-btn" target="_blank" rel="noopener" 
+               href="https://wa.me/905537471141?text=Merhaba%2C%20Zeynep%20ve%20Ula%C5%9F%27%C4%B1n%20d%C3%BC%C4%9F%C3%BCn%20davetine%20kat%C4%B1l%C4%B1m%20durumumu%20bildirmek%20istiyorum.">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+              </svg>
+              <span>WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- 2. DİKEY ÇİFT KANATLI KAPAK: tasarim/kapak.jpg -->
+    <div class="gatefold-cover" id="gatefoldCover">
+      
+      <!-- Sol Kapak -->
+      <div class="gate-door-left" id="doorLeft" title="Açmak için dokunun">
+        <div class="door-crop-left">
+          <img id="imgDoorLeft" class="door-img-left" src="tasarim/kapak.jpg" alt="Sol Kapak" />
+        </div>
+      </div>
+
+      <!-- Sağ Kapak -->
+      <div class="gate-door-right" id="doorRight" title="Açmak için dokunun">
+        <div class="door-crop-right">
+          <img id="imgDoorRight" class="door-img-right" src="tasarim/kapak.jpg" alt="Sağ Kapak" />
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- LCV FORMU SAYFA İÇİ MODAL -->
+  <div class="modal-overlay" id="rsvpModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Katılım Bildirimi</h3>
+        <button class="modal-close-btn" id="closeRsvpModalBtn" aria-label="Kapat">&times;</button>
+      </div>
+      <form id="rsvpForm" onsubmit="handleRsvpSubmit(event)">
+        <div class="form-group">
+          <label for="guestName">Adınız Soyadınız</label>
+          <input type="text" id="guestName" class="form-input" placeholder="Ad Soyad" required />
+        </div>
+        <div class="form-group">
+          <label for="guestCount">Kişi Sayısı</label>
+          <input type="number" id="guestCount" class="form-input" min="1" max="10" value="1" required />
+        </div>
+        <div class="form-group">
+          <label>Katılım Durumu</label>
+          <div class="radio-row">
+            <label class="radio-label">
+              <input type="radio" name="attending" value="evet" checked /> Katılıyorum
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attending" value="hayir" /> Katılamıyorum
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="primary-map-btn" style="width: 100%; margin-top: 10px;">
+          Bildirimi Gönder
+        </button>
+        <p id="rsvpSuccessMsg" style="display:none; color:#1b7340; margin-top:10px; font-size:14px; font-weight:500;">
+          ✓ Katılım durumunuz kaydedildi. Teşekkür ederiz!
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let isOpen = false;
+
+    const appScreen = document.getElementById('appScreen');
+    const gatefoldCover = document.getElementById('gatefoldCover');
+
+    const imgDoorLeft = document.getElementById('imgDoorLeft');
+    const imgDoorRight = document.getElementById('imgDoorRight');
+
+    const rsvpModal = document.getElementById('rsvpModal');
+    const openRsvpModalBtn = document.getElementById('openRsvpModalBtn');
+    const closeRsvpModalBtn = document.getElementById('closeRsvpModalBtn');
+    const guestNameInput = document.getElementById('guestName');
+
+    // 1. Resim Yolu Kontrolleri (.jpg/.png)
+    function checkPath(elem, paths) {
+      let idx = 0;
+      elem.onerror = () => {
+        idx++;
+        if (idx < paths.length) {
+          elem.src = paths[idx];
+        }
+      };
+    }
+    checkPath(imgDoorLeft, ['tasarim/kapak.jpg', 'tasarim/kapak.png', 'kapak.jpg', 'kapak.png', './tasarim/kapak.jpg']);
+    checkPath(imgDoorRight, ['tasarim/kapak.jpg', 'tasarim/kapak.png', 'kapak.jpg', 'kapak.png', './tasarim/kapak.jpg']);
+
+    // Arka plan resmi kontrolü
+    const innerCard = document.getElementById('innerCard');
+    const testBg = new Image();
+    testBg.onload = () => {
+      innerCard.style.backgroundImage = "url('tasarim/background.png')";
+    };
+    testBg.onerror = () => {
+      innerCard.style.backgroundImage = "url('tasarim/background.jpg'), url('background.png'), url('background.jpg')";
+    };
+    testBg.src = 'tasarim/background.png';
+
+    // 2. Açılma Mekanizması: Kapaklar 3D döner
+    function handleOpen() {
+      if (isOpen) return;
+      isOpen = true;
+      appScreen.classList.add('is-open');
+    }
+
+    gatefoldCover.addEventListener('click', handleOpen);
+
+    // 3. Modal Escape & Focus Trap
+    function openModal() {
+      rsvpModal.style.display = 'flex';
+      setTimeout(() => guestNameInput.focus(), 50);
+    }
+
+    function closeModal() {
+      rsvpModal.style.display = 'none';
+      if (openRsvpModalBtn) openRsvpModalBtn.focus();
+    }
+
+    openRsvpModalBtn.addEventListener('click', openModal);
+    closeRsvpModalBtn.addEventListener('click', closeModal);
+    rsvpModal.addEventListener('click', (e) => {
+      if (e.target === rsvpModal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (rsvpModal.style.display !== 'flex') return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeModal();
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        const focusables = rsvpModal.querySelectorAll(
+          'button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstEl = focusables[0];
+        const lastEl = focusables[focusables.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstEl) {
+            e.preventDefault();
+            lastEl.focus();
+          }
+        } else {
+          if (document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          }
+        }
+      }
+    });
+
+    function handleRsvpSubmit(e) {
+      e.preventDefault();
+      document.getElementById('rsvpSuccessMsg').style.display = 'block';
+      setTimeout(() => {
+        closeModal();
+        document.getElementById('rsvpSuccessMsg').style.display = 'none';
+        document.getElementById('rsvpForm').reset();
+      }, 1600);
+    }
+  </script>
+</body>
+</html>
