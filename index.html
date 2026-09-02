@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dijital Davetiye</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Animasyonlar için GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    
+    <!-- Zarfı merkezde tutmak için kapsayıcı -->
+    <div class="envelope-wrapper">
+        <div class="envelope-container">
+            <div class="envelope-back"></div>
+            <div class="letter" id="letter">
+                <h2>Büyük Gün</h2>
+                <p>Detayları görmek için kaydırın...</p>
+            </div>
+            <div class="envelope-front"></div>
+            <div class="flap" id="flap"></div>
+            <div class="seal" id="seal">Aç</div>
+        </div>
+    </div>
+
+    <!-- Aşağı kaydırınca çıkacak içerik bölümü -->
+    <div class="content-section" id="content">
+        <div class="details">
+            <h3>Tarih & Saat</h3>
+            <p class="date">1 Ağustos 2026</p>
+            <p>19:30</p>
+        </div>
+        
+        <div class="details">
+            <h3>Mekan</h3>
+            <p>Bella Vista Event, Adana</p>
+            <a href="https://maps.google.com" target="_blank" class="btn">Konumu Gör</a>
+        </div>
+
+        <div class="details">
+            <h3>LCV</h3>
+            <p>Lütfen katılım durumunuzu bildirin.</p>
+            <!-- LCV Linki daha sonra Google Forms ile değiştirilecek -->
+            <a href="#" target="_blank" class="btn btn-dark">Katılım Formunu Doldur</a>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
